@@ -6,7 +6,7 @@ namespace HappyTools
 {
     public static class RuntimeInitializer
     {
-        const string BOOTSTRAPPER_PREFAB_PATH = "GameBootstrapper";
+        const string BOOTSTRAPPER_PREFAB_PATH = "GameBootstrapper_"; //change this to GameBootstrapper  (remove the _ )
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void InstantiateBootstrapper()
@@ -17,13 +17,14 @@ namespace HappyTools
 
             if (resourceOb == null)
             {
-                Debug.LogError("Failed to find bootstrapper at: " + BOOTSTRAPPER_PREFAB_PATH + ".\nChange the path by changing BOOTSTRAPPER_PREFAB_PATH at RuntimeInitializer.cs. It should be relative to the Resources directory.\nIf you don't want to use a bootstrapper, set the path to \"\".\n");
-                return;
+                Debug.LogWarning("Failed to find bootstrapper at: " + BOOTSTRAPPER_PREFAB_PATH + ".\nChange the path by changing BOOTSTRAPPER_PREFAB_PATH at RuntimeInitializer.cs. It should be relative to the Resources directory.\nIf you don't want to use a bootstrapper, set the path to \"\".\n");
             }
-
-            GameObject ob = Object.Instantiate(resourceOb) as GameObject;
-            Object.DontDestroyOnLoad(ob);
-            ob.GetComponent<GameBootstrapper>().InitGame();
+            else
+            {
+                GameObject ob = Object.Instantiate(resourceOb) as GameObject;
+                Object.DontDestroyOnLoad(ob);
+                ob.GetComponent<GameBootstrapper>().InitGame();
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GameBootStrapperDemo
 {
+    
     public class GameBootStrapper : HappyTools.GameBootstrapper
     {
         [SerializeField] LogManager _logManager;
